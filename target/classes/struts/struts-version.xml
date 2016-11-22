@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="version" namespace="/" extends="atdd-struts2,json-default">
+		<action name="getlastVersion" class="verAction" method="getlastVersion">
+			<result name="success">setting/version/pageVersion.jsp</result>
+		</action>
+		
+		<action name="addVersion" class="verAction" method="addVersion">
+			<result name="success" type="redirect">setting/version/listVer.jsp</result>
+		</action>
+
+	</package>
+</struts>

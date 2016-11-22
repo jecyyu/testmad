@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="interface" namespace="/" extends="atdd-struts2,json-default">
+
+		<!-- 接口名称 -->
+		
+		<action name="getInterface" class="interAction" method="getInterface">
+			<result name="success"   type="json">setting/interNameSetting.jsp</result>
+		</action>
+		
+		<action name="insertInterface" class="interAction" method="insertInterface">
+			<result name="success" type="redirect">interface-test/interfacePage.jsp</result>
+		</action>
+		
+		<action name="updateInterface" class="interAction" method="updateInterface">
+			<result name="success" type="redirect">interface-test/interfacePage.jsp</result>
+		</action>
+		
+		<action name="deleteInterface" class="interAction" method="delInterface">
+			<result name="success" type="redirect">interface-test/interfacePage.jsp</result>
+		</action>
+		
+		<action name="getInterfaceById" class="interAction" method="getInterfaceById">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- 接口path -->
+		<action name="getPathBySysId" class="interAction" method="getPathBySysId">
+			<result name="success" type="json"></result>
+			<result name="error" type="json">error.jsp</result>
+		</action>
+		
+		<!-- 接口参数 -->
+		
+		<!-- <action name="getInterfaceParam" class="interAction" method="getInterParam">
+			<result name="success"   type="json"></result>
+		</action>
+		
+		<action name="insertInterfaceParam" class="interAction" method="insertInterParam">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="updateInterfaceParam" class="interAction" method="updateInterParam">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="deleteInterfaceParam" class="interAction" method="deleteInterParam">
+			<result name="success" type="json"></result>
+		</action> -->
+		
+		<!-- 执行shell脚本 -->
+		<action name="execShell" class="interAction" method="execShell">
+			<result name="success"   type="json"></result>
+		</action>
+
+	</package>
+</struts>

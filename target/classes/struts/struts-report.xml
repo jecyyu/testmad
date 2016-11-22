@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="report" namespace="/" extends="atdd-struts2,json-default">
+		
+		
+		<action name="getMonitorReport" class="reportAction" method="getMonitorReport">
+			<result name="success" type="json">report/monitor_report.jsp</result>
+			<result name="error"  type="json">error.jsp</result>
+		</action>
+		
+		<action name="getDateReport" class="reportAction" method="getDateReport">
+			<result name="success" type="json">report/date_report.jsp</result>
+			<result name="error"  type="json">error.jsp</result>
+		</action>
+		
+		<action name="getMonitorReportByPage" class="reportAction" method="getMonitorReportByPage">
+			<result name="success" type="json">report/monitor_report.jsp</result>
+			<result name="error"  type="json">error.jsp</result>
+		</action>
+		
+		<action name="getTestCountReport" class="reportAction" method="getTestCountReport">
+			<result name="success" type="json">report/TestCountReport.jsp</result>
+			<result name="error"  type="json">error.jsp</result>
+		</action>
+		<action name="clearCountData" class="reportAction" method="clearTestCountData">
+			<result name="success" type="json">report/TestCountReport.jsp</result>
+			<result name="error"  type="json">error.jsp</result>
+		</action>
+		
+
+	</package>
+</struts>

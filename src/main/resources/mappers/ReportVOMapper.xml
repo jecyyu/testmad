@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.report.dao.ReportVOMapper">
+
+	<parameterMap type="com.report.domain.Record" id="recordMap">
+		<parameter property="resid" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="url" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="acttype" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="author" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="adspaceid" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="campid" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="convid" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="type" jdbcType="INTEGER" mode="IN"/>
+		<parameter property="status" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="remark" jdbcType="VARCHAR" mode="IN"/>
+	</parameterMap>
+	
+	<parameterMap type="com.report.domain.Report" id="repotParam">
+		<parameter property="author" jdbcType="VARCHAR" mode="IN"/>
+	</parameterMap>
+	
+	<parameterMap type="com.report.domain.Report" id="reportPage">
+		<parameter property="author" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="pageIndex" jdbcType="INTEGER" mode="IN"/>
+	</parameterMap>
+	
+	<update id="proc_record" parameterMap="recordMap" >
+		call proc_record(#{type},#{resid},#{status},#{url},#{acttype},#{author},#{adspaceid},#{campid},#{convid},#{remark})
+	</update>
+	
+	
+	<!-- Report Map -->
+	<insert id="insertDetailReport" parameterType="com.report.domain.Report" >
+		insert into tb_detailreport(adspaceid,campid,convid,req,imp,clk,act,system,author,remark) values(#{adspaceid},#{campid},#{convid},#{req},#{imp},#{clk},#{act},#{system},#{author},#{remark})
+	</insert>
+	
+	<select id="getMonitorReport" parameterType="String" resultType="com.report.domain.Report">
+		select d.resid,d.adspaceid,d.campid,d.convid,d.req,d.imp,d.clk,d.act,u.username as author,d.remark,d.createtime+interval 8 hour as createtime
+		from tb_detailreport d INNER JOIN tb_user u on d.author=u.resid
+		<where>
+		<choose>
+			<when test="author=='a561845620aa4f57344b051dd94bf076'">date_format(d.createtime,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d')</when>
+			<when test="author=='6393247eda9b040be0df9118d0ea6d5d'">date_format(d.createtime,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d')</when>
+			<otherwise>
+				date_format(d.createtime,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d') and
+				d.author=#{author} 
+			</otherwise>
+		</choose>
+		</where>
+		order by createtime desc ;
+	</select>
+	
+	<select id="getMonitorReportByPage" parameterType="com.report.domain.Report" resultType="com.report.domain.Report">
+		select d.resid,d.adspaceid,d.campid,d.convid,d.req,d.imp,d.clk,d.act,u.username as author,d.remark,d.createtime+interval 8 hour as createtime
+		from tb_detailreport d INNER JOIN tb_user u on d.author=u.resid
+		<where>
+		<choose>
+			<when test="author=='a561845620aa4f57344b051dd94bf076'">date_format(d.createtime,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d')</when>
+			<when test="author=='6393247eda9b040be0df9118d0ea6d5d'">date_format(d.createtime,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d')</when>
+			<otherwise>
+				date_format(d.createtime,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d') and
+				d.author=#{author} 
+			</otherwise>
+		</choose>
+		</where>
+		order by createtime desc;
+	</select>
+	
+	<select id="getDateReport"  resultType="com.report.domain.Report">
+		select adspaceid,campid,convid,req,imp,clk,act,reportDate,createtime
+		from tb_datereport 
+		order by createtime desc;
+	</select>
+	
+	<select id="getTestCount"  resultType="com.report.domain.Report">
+		select id,campid,convid,imp,createtime,recordtime
+		from tb_report_total 
+		order by createtime desc;
+	</select>
+	
+	<!-- Record Map -->
+	<insert id="insertRecordReq" parameterType="com.report.domain.Record" >
+		insert into tb_record_req(resid,url,status) values(#{resid},#{url},#{status})
+	</insert>
+	
+	<insert id="insertRecordImp" parameterType="com.report.domain.Record" >
+		insert into tb_record_imp(resid,url,status) values(#{resid},#{url},#{status})
+	</insert>
+	
+	<insert id="insertRecordClk" parameterType="com.report.domain.Record" >
+		insert into tb_record_clk(resid,url,status) values(#{resid},#{url},#{status})
+	</insert>
+	
+	<insert id="insertRecordAct" parameterType="com.report.domain.Record" >
+		insert into tb_record_act(resid,url,acttype) values(#{resid},#{url},#{acttype})
+	</insert>
+	
+	<update id="testCount" parameterType="String" ><!-- TestCountNumber -->
+		call proc_testCount(#{campId})
+		<!-- update tb_report_total set imp = imp + 1 where campid=#{campId}; -->
+	</update>
+	
+	<update id="clearData" parameterType="int" ><!-- TestCountNumber -->
+		update tb_report_total set imp = 0 where id=#{id};
+		<!-- update tb_report_total set imp = imp + 1 where campid=#{campId}; -->
+	</update>
+	
+
+</mapper>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.param.dao.ParamVOMapper">
+	
+	<!-- ResultMap -->
+	<resultMap id="OS_ResultMap" type="com.param.domain.Param">
+		<result column="id" jdbcType="INTEGER" property="id" />
+	    <result column="os" jdbcType="VARCHAR" property="os" />
+	</resultMap>
+	
+	<resultMap id="OSV_ResultMap" type="com.param.domain.Param">
+		<result column="id" jdbcType="INTEGER" property="id" />
+	    <result column="osv" jdbcType="VARCHAR" property="osv" />
+	</resultMap>
+	
+	<resultMap id="UA_ResultMap" type="com.param.domain.Param">
+		<result column="id" jdbcType="INTEGER" property="id" />
+	    <result column="ua" jdbcType="VARCHAR" property="ua" />
+	</resultMap>
+	
+	<resultMap id="Media_ResultMap" type="com.param.domain.Param">
+		<result column="ch_id" jdbcType="VARCHAR" property="ch" />
+	    <result column="medianame" jdbcType="VARCHAR" property="medianame" />
+	</resultMap>
+	
+	<resultMap id="System_ResultMap" type="com.param.domain.Param">
+		<result column="resId" jdbcType="INTEGER" property="resid" />
+	    <result column="system" jdbcType="VARCHAR" property="system" />
+	</resultMap>
+	
+	<resultMap id="Type_ResultMap" type="com.param.domain.Param">
+		<result column="resid" jdbcType="INTEGER" property="resid" />
+	    <result column="sysid" jdbcType="INTEGER" property="sysid" />
+	    <result column="typeName" jdbcType="VARCHAR" property="typeName" />
+	</resultMap>
+	
+	<resultMap id="TypeName_ResultMap" type="com.param.domain.Param">
+		<result column="resid" jdbcType="INTEGER" property="resid" />
+	    <result column="sysid" jdbcType="INTEGER" property="sysid" />
+	    <result column="typeName" jdbcType="VARCHAR" property="typeName" />
+	</resultMap>
+	
+	<resultMap id="picSize_ResultMap" type="com.param.domain.Param">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="width" jdbcType="VARCHAR" property="width" />
+	    <result column="heigh" jdbcType="VARCHAR" property="height" />
+	    <result column="type" jdbcType="VARCHAR" property="type" />
+	</resultMap>
+	
+	<resultMap id="ip_ResultMap" type="com.param.domain.Param">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+	    <result column="ip" jdbcType="VARCHAR" property="cityIp" />
+	</resultMap>
+	
+	<resultMap id="Url_ResultMap" type="com.param.domain.Param">
+		<result column="urlId" jdbcType="INTEGER" property="id" />
+		<result column="typeid" jdbcType="INTEGER" property="typeid" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+	    <result column="url_system" jdbcType="VARCHAR" property="url_system" />
+	    <result column="url_status" jdbcType="VARCHAR" property="url_status" />
+	    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+	</resultMap>
+	
+	<resultMap id="firstCity_ResultMap" type="com.param.domain.Ip">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="resid" jdbcType="VARCHAR" property="resid" />
+	    <result column="cityName" jdbcType="VARCHAR" property="cityName" />
+	</resultMap>
+	
+	<resultMap id="secondCity_ResultMap" type="com.param.domain.Ip">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="firstId" jdbcType="INTEGER" property="firstId" />
+	    <result column="cityId" jdbcType="INTEGER" property="cityId" />
+	    <result column="cityName" jdbcType="VARCHAR" property="cityName" />
+	    <result column="ip" jdbcType="VARCHAR" property="ip" />
+	</resultMap>
+	
+	<resultMap id="cityIp_ResultMap" type="com.param.domain.Ip">
+		<result column="id" jdbcType="INTEGER" property="id" />
+	    <result column="cityId" jdbcType="INTEGER" property="cityId" />
+	    <result column="ip" jdbcType="VARCHAR" property="ip" />
+	</resultMap>
+	
+	<!-- SQL Map -->
+	<select id="getOS" resultMap="OS_ResultMap">
+	    select id,os from tb_os order by id asc
+	</select>
+	
+	<select id="getOSV" parameterType="String" resultMap="OSV_ResultMap">
+	    select id,osv from tb_osv where os=#{os} order by osv desc
+	</select>
+	
+	<select id="getUA" parameterType="String" resultMap="OSV_ResultMap">
+	    select id,ua from tb_ua where osv=#{osv}
+	</select>
+	
+	<select id="getMedia" resultMap="Media_ResultMap">
+	    select ch_id,medianame from tb_media order by ch_id asc
+	</select>
+	
+	<select id="getSystem" parameterType="int" resultMap="System_ResultMap">
+	    select resId,system from tb_system
+	    <where>
+		<choose>
+			<when test="_parameter==-1">1=1</when>
+			<otherwise>
+				resId=#{resid}
+			</otherwise>
+		</choose>
+		</where>
+		order by id asc;
+	</select>
+	
+	<select id="getTypeId"  parameterType="com.param.domain.Param" resultMap="Type_ResultMap">
+	    select resid,sysid,typeName from tb_testType where sysid=#{sysid} and typeName=#{typeName} order by id asc;
+	</select>
+	
+	<select id="getTypeName"  parameterType="String" resultMap="TypeName_ResultMap">
+	    select resid,sysid,typeName from tb_testType where sysid=#{sysid} order by id asc;
+	</select>
+	
+	<!-- 尺寸管理 -->
+	
+	<select id="getPicSizeAll" resultMap="picSize_ResultMap">
+	    select id,name,width,heigh,type from tb_mate order by id asc
+	</select>
+	
+	<insert id="insertPicSize" parameterType="com.param.domain.Param">
+		insert into tb_mate(name,width,heigh,type,size) values(#{name},#{width},#{height},#{type},'100')
+	</insert>
+	
+	<delete id="delPicSize"  parameterType="int">
+		delete from tb_mate where id = #{id}
+	</delete>
+	
+	<!-- IP管理 -->
+	
+	<select id="getIpAll" resultMap="ip_ResultMap">
+	    select id,city,ip from tb_ip order by id asc
+	</select>
+	
+	<insert id="insertIp" parameterType="com.param.domain.Param">
+		insert into tb_ip(city,ip) values(#{city},#{cityIp})
+	</insert>
+	
+	<delete id="delIp"  parameterType="int">
+		delete from tb_ip where id = #{id}
+	</delete>
+	
+	<!-- Url管理 -->
+	
+	<select id="getUrlList" parameterType="String" resultMap="Url_ResultMap">
+	    select urlId,typeid,url,url_status,url_system,createtime from tb_system_url 
+	    <where>
+		<choose>
+			<when test="_parameter==''">url_status=0</when>
+			<otherwise>
+				url_status=4 and typeid=#{typeid}
+			</otherwise>
+		</choose>
+		</where>
+		order by urlId asc
+	</select>
+	
+	<select id="getUrlListByTypeId" parameterType="com.param.domain.Param" resultMap="Url_ResultMap">
+	    select u.urlId,u.typeid,u.url,u.url_status,u.url_system,u.createtime from  tb_testtype t INNER JOIN tb_system_url u on t.resid=u.typeid where t.sysid=#{sysid} and t.typeName=#{typeName} order by urlId asc
+	</select>
+	
+	<insert id="insertUrl" parameterType="com.param.domain.Param">
+		insert into tb_system_url(typeid,url,url_status,url_system) values(#{typeid},#{url},#{url_status},#{url_system})
+	</insert>
+	
+	<!--  New IP获取 -->
+	
+	<select id="getFirstCity" resultMap="firstCity_ResultMap">
+	    select id,resid,cityName from tb_firstcity where resId!=0 order by resid asc
+	</select>
+	
+	<select id="getSecondCity" parameterType="int" resultMap="secondCity_ResultMap">
+	    select s.id as id,s.firstId as firstId, i.cityid as cityId,s.cityName as cityName,i.ip as ip from tb_cityip i INNER JOIN tb_secondcity s on i.cityid=s.cityId where s.firstId=#{firstId} group by cityName;
+	</select>
+	
+	<select id="getCityIp" parameterType="int" resultMap="cityIp_ResultMap">
+	    select id,cityId,ip from tb_cityip where cityId=#{cityId} limit 1;
+	</select>
+
+</mapper>

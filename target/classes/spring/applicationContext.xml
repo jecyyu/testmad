@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- 数据源连接信息配置文件 -->
+	<context:property-placeholder location="classpath*:jdbc.properties" />
+	
+	<!-- 数据源 -->
+	<bean id="dataSource_dev" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName.mysql}" />
+		<property name="url" value="${jdbc.url.mysql}" />
+		<property name="username" value="${jdbc.username.mysql}" />
+		<property name="password" value="${jdbc.password.mysql}" />
+	</bean>
+
+
+	<!-- 配置sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource_dev" />
+		<!-- 自动到mappers包下面去搜索mybatis的映射文件 -->
+		<property name="mapperLocations" value="classpath*:mappers/**/*.xml" />
+	</bean>
+
+	<!-- 使用Spring的事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource_dev" />
+	</bean>
+	
+	
+	<!-- Demo -->
+	<!-- <bean id="demoAction" class="com.demo.action.PageLoadAction">
+		<property name="demoService" ref="demoService"/>
+	</bean>
+	
+	<bean id="demoService" class="com.demo.service.impl.DemoServiceImpl">
+		<property name="demoVOMapper" ref="demoVOMapper" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.demo.dao" />
+	</bean> -->
+	
+	
+	<!-- User -->
+	<bean id="userAction" class="com.user.action.LoginAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean id="userService" class="com.user.service.impl.UserServiceImpl">
+		<property name="userVOMapper" ref="userVOMapper" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.user.dao" />
+	</bean>
+	
+	
+	<!-- Param -->
+	<bean id="urlSettingAction" class="com.param.action.UrlSettingAction">
+		<property name="paramService" ref="paramService"/>
+	</bean>
+	<bean id="indexLoadAction" class="com.param.action.IndexLoadAction">
+		<property name="paramService" ref="paramService"/>
+	</bean>
+	<bean id="ipAction" class="com.param.action.IpAction">
+		<property name="paramService" ref="paramService"/>
+	</bean>
+	
+	<bean id="paramService" class="com.param.service.impl.ParamServiceImpl">
+		<property name="paramVOMapper" ref="paramVOMapper" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.param.dao" />
+	</bean>
+	
+	<bean id="sendUrlAction" class="com.param.action.SendURLAction">
+		<property name="paramService" ref="paramService"/>
+	</bean>
+	
+	<bean id="paramSettingAction" class="com.param.action.ParamSettingAction">
+		<property name="paramService" ref="paramService"/>
+	</bean>
+	
+	<!-- Interface -->
+	<bean id="interAction" class="com.testing.action.InterfaceAction">
+		<property name="interService" ref="interService"/>
+	</bean>
+	
+	<bean id="execShell" class="com.testing.action.InterfaceAction">
+		<property name="interService" ref="interService"/>
+	</bean>
+	
+	<bean id="interService" class="com.testing.service.impl.InterServiceImpl">
+		<property name="interfaceVOMapper" ref="interfaceVOMapper" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.testing.dao" />
+	</bean>
+
+	<!-- Report -->
+	<bean id="recordAction" class="com.report.action.RecordAction">
+		<property name="recordService" ref="recordService"/>
+	</bean>
+	
+	<bean id="reportAction" class="com.report.action.ReportAction">
+		<property name="recordService" ref="recordService"/>
+	</bean>
+	
+	<bean id="recordService" class="com.report.service.impl.RecordServiceImpl">
+		<property name="reportVOMapper" ref="reportVOMapper" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.report.dao" />
+	</bean>
+	
+	<!-- Version -->
+	<bean id="verAction" class="com.setting.action.VersionAction">
+		<property name="verService" ref="verService"/>
+	</bean>
+	
+	<bean id="verService" class="com.setting.service.impl.VersionServiceImpl">
+		<property name="verVOMapper" ref="versionVOMapper" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.setting.dao" />
+	</bean>
+</beans>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testing.dao.InterfaceVOMapper">
+	
+	<!-- ResultMap -->
+	<resultMap id="InterfaceParamMap" type="com.testing.domain.Interface">
+		<result column="id" jdbcType="INTEGER" property="id" />
+	    <result column="param" jdbcType="VARCHAR" property="param" />
+	    <result column="remark" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+	
+	<resultMap id="InterfaceMap" type="com.testing.domain.Interface">
+		<result column="id" jdbcType="INTEGER" property="id" />
+	    <result column="typeid" jdbcType="INTEGER" property="typeid" />
+	    <result column="interfaces" jdbcType="VARCHAR" property="interfaces" />
+	    <result column="remark" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+	
+	<resultMap id="InterfacePathMap" type="com.testing.domain.Interface">
+		<result column="id" jdbcType="INTEGER" property="id" />
+	    <result column="sysid" jdbcType="INTEGER" property="sysid" />
+	    <result column="path" jdbcType="VARCHAR" property="path" />
+	    <result column="status" jdbcType="INTEGER" property="status" />
+	    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+	</resultMap>
+	
+	<resultMap id="InterfaceMapById" type="com.testing.domain.Interface">
+		<result column="id" jdbcType="INTEGER" property="id" />
+	    <result column="platform_name" jdbcType="VARCHAR" property="platform_name" />
+	    <result column="path" jdbcType="VARCHAR" property="path" />
+	    <result column="interfaces" jdbcType="VARCHAR" property="interfaces" />
+	    <result column="remark" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+	
+	<!-- Interface Name-->
+	<select id="getInterface" resultMap="InterfaceMap" parameterType="String">
+	    select id,interfaces,remark from tb_interface
+	    <where>
+		<choose>
+			<when test="_parameter==null">1=1</when>
+			<otherwise>
+				status=0 and path_id=#{pathid}
+			</otherwise>
+		</choose>
+		</where>
+		order by id asc;
+	</select> 
+	
+	<insert id="insertInterface" parameterType="com.testing.domain.Interface">
+		insert into tb_interface(platform_id,path_id,interfaces,remark) values(#{platform_id},#{pathid},#{interfaces},#{remark})
+	</insert>
+	
+	<update id="updateInterface" parameterType="com.testing.domain.Interface" >
+		update tb_interface set interfaces=#{interfaces},remark=#{remark},platform_id=#{platform_id},path_id=#{pathid} where id=#{id}
+	</update>
+	
+	<update id="delInterface" parameterType="com.testing.domain.Interface" >
+		update tb_interface set status=1 where id=#{id}
+	</update>
+	
+	<select id="getInterfaceById" resultMap="InterfaceMapById" parameterType="String">
+	    select i.id as id,s.system as platform_name,s.id as platform_id,p.path as path,p.id as pathid,i.interfaces as interfaces,i.remark as remark from tb_interface i INNER JOIN tb_system s on i.platform_id=s.resId INNER JOIN tb_interface_path p on i.path_id=p.resid where i.status=0 and i.id=#{id};
+	</select>
+	
+	<!-- Interface Path -->
+	<select id="getPathBySysId" resultMap="InterfacePathMap" parameterType="String">
+	    select resid,sysid,path,status,createtime from tb_interface_path where status=0 and sysid=#{sysid} order by id asc;
+	</select>
+	
+	
+	<!-- Interface Param -->
+	<select id="getParam" resultMap="InterfaceParamMap" parameterType="String">
+	    select id,param,remark from tb_inter_param where status=0 and typeid=#{typeid} order by id asc;
+	</select>
+	
+	<insert id="insertInterParam" parameterType="com.testing.domain.Interface">
+		insert into tb_inter_param(param,remark) values(#{param},#{remark})
+	</insert>
+	
+	<update id="updateInterParam" parameterType="com.testing.domain.Interface" >
+		update tb_inter_param set param=#{param},remark=#{remark},status=#{status} where id=#{id}
+	</update>
+
+</mapper>

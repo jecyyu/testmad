@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="param" namespace="/" extends="atdd-struts2,json-default">
+<!--  -->
+		<action name="getParamAction" class="indexLoadAction" method="indexloadAction">
+			<result>right.jsp</result>
+		</action>
+		
+		<action name="getBroadTestAction" class="indexLoadAction" method="indexloadAction">
+			<result name="success">broadtest.jsp</result>
+		</action>
+		
+		<action name="sendUrlAction" class="sendUrlAction" method="sendControl">
+			<result name="success">
+				getParamAction
+			</result>
+		</action>
+		<!-- 老版登录 -->
+		<action name="loginUser" class="userAction" method="loginUser">
+			<result name="success">index.jsp</result>
+			<result name="fail" type="redirect">login.jsp</result>
+			<result name="login_error" type="redirect">login.jsp</result>
+		</action>
+		<!-- 老版登出 -->
+		<action name="logout" class="userAction" method="logoutUser">
+			<result name="success">login.jsp</result>
+		</action>
+		
+		<action name="sendSoapCampaign" class="sendUrlAction" method="sendSoapCampaign">
+			<result name="success">soapCampaign.jsp</result>
+			<result name="error">error.jsp</result>
+			<result name="fail">error.jsp</result>
+		</action>
+		
+		<!-- <action name="getPicSizeAll" class="paramSettingAction" method="getPicSizeAction">
+			<result type="json" name="success">right.jsp</result>
+			<result type="json" name="error">error.jsp</result>
+			<result type="json" name="fail">error.jsp</result>
+		</action>
+		
+		<action name="getSizeList" class="paramSettingAction" method="getPicSizeList">
+			<result type="json" name="success">setting/picSizeSetting.jsp</result>
+			<result type="json" name="error">error.jsp</result>
+			<result type="json" name="fail">error.jsp</result>
+		</action> -->
+		
+		<action name="insertPicSize" class="paramSettingAction" method="insertPicSize">
+			<result type="json" name="success">setting/picSizeSetting.jsp</result>
+			<result type="json" name="error">error.jsp</result>
+			<result type="json" name="fail">error.jsp</result>
+		</action>
+		
+		<action name="deletePicSize" class="paramSettingAction" method="deletePicSize">
+			<result type="json" name="success">setting/picSizeSetting.jsp</result>
+			<result type="json" name="error">error.jsp</result>
+			<result type="json" name="fail">error.jsp</result>
+		</action>
+		
+		<!-- <action name="getIpAction" class="paramSettingAction" method="getCityIpList">
+			<result type="json" name="success"></result>
+			<result type="json" name="error">error.jsp</result>
+		</action>
+		
+		<action name="getChannelAction" class="paramSettingAction" method="getChannelList">
+			<result type="json" name="success"></result>
+			<result type="json" name="error">error.jsp</result>
+		</action>
+		
+		<action name="getFirstCity" class="ipAction" method="getFirstCity">
+			<result type="json" name="success"></result>
+			<result type="json" name="error">error.jsp</result>
+			<result type="json" name="fail">error.jsp</result>
+		</action>
+		
+		<action name="getSecondCity" class="ipAction" method="getSecondCity">
+			<result type="json" name="success"></result>
+			<result type="json" name="error">error.jsp</result>
+			<result type="json" name="fail">error.jsp</result>
+		</action>
+		
+		<action name="getCityIp" class="ipAction" method="getCityIp">
+			<result type="json" name="success"></result>
+			<result type="json" name="error">error.jsp</result>
+			<result type="json" name="fail">error.jsp</result>
+		</action>-->
+		
+		<action name="getSystemAction" class="urlSettingAction" method="getSysList">
+			<result name="success" type="json"></result>
+			<result name="error" type="json">error.jsp</result>
+		</action>
+		
+		<!-- <action name="getUrlAction" class="urlSettingAction" method="getUrlList">
+			<result name="success" type="json"></result>
+			<result name="error" type="json">error.jsp</result>
+		</action>
+		
+		<action name="getTypeListAction" class="urlSettingAction" method="getTypeList">
+			<result name="success" type="json"></result>
+			<result name="error" type="json">error.jsp</result>
+		</action> -->
+
+	</package>
+</struts>

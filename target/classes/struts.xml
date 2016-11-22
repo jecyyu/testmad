@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- struts 常量设置  -->
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.configuration.xml.reload" value="false" />
+	<constant name="struts.i18n.reload" value="false" />
+    <constant name="struts.custom.i18n.resources" value="globalMessages" />
+    <constant name="struts.action.extension" value=",,html,htm,action" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+	<constant name="struts.enable.SlashesInActionNames" value="true"/>
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.objectFactory.spring.autoWire" value="name"/>
+	
+	<package name="testmad-struts2" namespace="/" extends="struts-default">
+		<!-- 全局配置 -->
+		<interceptors>
+			<interceptor-stack name="appInterceptorStack">
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 默认的拦截器配置,如果没有自定义的拦截器加到栈里面，可以省略不写 -->
+		<default-interceptor-ref name="appInterceptorStack" />
+		
+		<!-- 全局跳转配置  -->
+		<global-results>
+			<result name="error" type="redirect">error.jsp</result>
+		</global-results>
+	</package>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	
+	<!-- include struts -->
+	<!-- <include file="struts/struts-demo.xml"/> -->
+	<include file="struts/struts-user.xml"/>
+	<include file="struts/struts-param.xml"/>
+	<include file="struts/struts-interface.xml"/>
+	<include file="struts/struts-report.xml"/>
+	<include file="struts/struts-version.xml"/>
+	
+</struts>
