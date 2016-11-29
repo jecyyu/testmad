@@ -41,6 +41,16 @@
 	    <error-code>500</error-code>
 	    <location>/error/error_500.jsp</location>
 	</error-page>
-    
+	
+	<servlet>
+	    <description></description>
+	    <display-name>protoServlet</display-name>
+	    <servlet-name>protoServlet</servlet-name>
+	    <servlet-class>com.base.protoServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>protoServlet</servlet-name>
+	    <url-pattern>/protoSend</url-pattern>
+	 </servlet-mapping>
 
 </web-app>

@@ -211,7 +211,7 @@
 								<tr>
 									<td colspan="9">
 										<div class="alert">
-											<div id="div_remark"></div>
+											<div id="div_remark" style="WORD-WRAP: break-word"></div>
 											
 										</div>
 									</td>

@@ -64,17 +64,16 @@ function execShell() {
 					</ul>
 				</li>
 				
-				<li class=""><a href="javascript:;"> <i class="icon-th"></i>
-						<span class="title" style="font-family:Times New Roman">Mocha Report</span> <span class="arrow "></span>
+				<li><a href="javascript:;"> <i
+						class="icon-bookmark-empty"></i> <span class="title" style="font-family:Times New Roman">Protobuf</span> 
 				</a>
 					<ul class="sub-menu">
-						<li><a href="http://172.16.26.128:9999/demo/mocha-reports/" target="mainFrame" style="font-family:Times New Roman">Demo</a></li>
-						<li><a href="http://172.16.26.128:9999/performad/report/" target="mainFrame" style="font-family:Times New Roman">Performad</a></li>
-						<li><a href="http://172.16.26.128:9999/premiummad/report/" target="mainFrame" style="font-family:Times New Roman">PremiumMad</a></li>
-						<li><a href="http://172.16.26.128:9999/exchange/report/" target="mainFrame" style="font-family:Times New Roman">SmartExchange</a></li>
+						<li><a href="interface-test/proto-iqiyi.jsp" target="mainFrame" style="font-family:Times New Roman">IQIYI</a></li>
+						<li><a href="interface-test/proto-iqiyi.jsp" target="mainFrame" style="font-family:Times New Roman">Madhouse</a></li>
+						<li><a href="interface-test/proto-iqiyi.jsp" target="mainFrame" style="font-family:Times New Roman">Tencent</a></li>
+						<li><a href="interface-test/proto-iqiyi.jsp" target="mainFrame" style="font-family:Times New Roman">Youku</a></li>
 					</ul>
 				</li>
-		
 				
 				
 				<li class=""><a href="javascript:;"> <i class="icon-th"></i>
@@ -87,6 +86,10 @@ function execShell() {
 						<li><a href="report/MonitorReport.jsp" target="mainFrame" style="font-family:Times New Roman">Monitor Report</a></li>
 						<li><a href="MonitorReport.jsp" target="mainFrame" style="font-family:Times New Roman">Date Report</a></li>
 						<li><a href="MonitorReport.jsp" target="mainFrame" style="font-family:Times New Roman">Detail Report</a></li>
+						<li><a href="http://172.16.26.128:9999/demo/mocha-reports/" target="mainFrame" style="font-family:Times New Roman">Demo</a></li>
+						<li><a href="http://172.16.26.128:9999/performad/report/" target="mainFrame" style="font-family:Times New Roman">Performad</a></li>
+						<li><a href="http://172.16.26.128:9999/premiummad/report/" target="mainFrame" style="font-family:Times New Roman">PremiumMad</a></li>
+						<li><a href="http://172.16.26.128:9999/exchange/report/" target="mainFrame" style="font-family:Times New Roman">SmartExchange</a></li>
 						<%} %>
 					</ul>
 				</li>
@@ -103,7 +106,7 @@ function execShell() {
 						<li><a href="setting/version/listVer.jsp" target="mainFrame" style="font-family:Times New Roman">Version</a></li>
 						<li><a href="#" target="mainFrame" style="font-family:Times New Roman">Interface Name</a></li>
 						<li><a href="#" target="mainFrame" style="font-family:Times New Roman">Interface Param</a></li>
-						<%if(session.getAttribute("loginRole").equals(1)) {%>						
+						<%-- <%if(session.getAttribute("loginRole").equals(1)) {%>						
 						<li><a href="UserSetting.jsp" target="mainFrame" style="font-family:Times New Roman">Size</a></li>
 						<li><a href="UserSetting.jsp" target="mainFrame" style="font-family:Times New Roman">Channels</a></li>
 						<li><a href="UserSetting.jsp" target="mainFrame" style="font-family:Times New Roman">UA</a></li>
@@ -112,7 +115,7 @@ function execShell() {
 						<li><a href="clientPage.jsp" target="mainFrame" style="font-family:Times New Roman">Client Tool</a></li>
 						<li><a href="javascript:getPicSize();" target="mainFrame" style="font-family:Times New Roman">GetSize</a></li>
 						<li><a href="javascript:execShell();" target="mainFrame" style="font-family:Times New Roman">exec shell</a></li>
-						<%} %>
+						<%} %> --%>
 					
 					</ul></li>
 				<%} %>
